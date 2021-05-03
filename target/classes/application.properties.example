@@ -1,0 +1,12 @@
+url=
+
+browser.close=true
+browser.driver=
+browser.headless=false
+
+browser.width=1920
+browser.height=1080
+
+environment=devel
+
+allure.project=default

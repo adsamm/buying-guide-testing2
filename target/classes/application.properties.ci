@@ -1,0 +1,12 @@
+url=https://goodtrust-web-devel.cleevio-frontend.vercel.app
+
+browser.close=true
+browser.headless=true
+browser.driver=chrome
+
+browser.width=1920
+browser.height=1080
+
+environment=devel
+
+allure.project=bootstrap
