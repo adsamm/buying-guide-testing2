@@ -1,62 +1,42 @@
 package tests;
 
+import config.Config;
+import config.DriverFactory;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.Page;
 import utils.PropertyUtils;
-import utils.ScreenshotUtility;
 import utils.WaitUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Year: 2018-19
- * An abstract base for all of the Android tests within this package
- * Responsible for setting up the Appium test Driver
- *
- * @author Prat3ik on 22/11/18
- * @project POM_Automation_Framework
- */
-
-@Listeners({ScreenshotUtility.class})
 public abstract class BaseTest {
-    /**
-     * As driver static it will be created only once and used across all of the test classes.
-     */
-    public static AppiumDriver driver;
-    public final static String APPIUM_SERVER_URL = PropertyUtils.getProperty("appium.server.url", "http://127.0.0.1:4723/wd/hub");
-    public final static int IMPLICIT_WAIT = PropertyUtils.getIntegerProperty("implicitWait", 30);
-    public static WaitUtils waitUtils = new WaitUtils();
 
+    protected Config config = new Config();
 
-    /**
-     * This method will run at the time of Test Suite creatopn so it will run at once through out the execution
-     * <p>
-     * Appium is a client - server model:
-     * So we need to set up appium client in order to connect to Device Farm's appium server.
-     */
-    @BeforeMethod
-    public void setUpAppium() throws MalformedURLException {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        setDesiredCapabilitiesForAndroid(capabilities);
-        driver = new AppiumDriver(new URL(APPIUM_SERVER_URL), capabilities);
-    }
+    protected WebDriverWait wait;
 
+    protected WebDriver driver;
     /**
      * This method will be called everytime before your test runs
      */
-    @BeforeTest
-    public abstract void setUpPage();
-
+    @BeforeMethod
+    public void setUp(Method context) {
+        driver = DriverFactory.get(new Config());
+    }
 
     /**
      * This method will always execute after each test case, This will quit the WebDriver instance called at the last
@@ -78,7 +58,7 @@ public abstract class BaseTest {
      * At the end of the Test Suite(At last) this method would be called
      */
     @AfterSuite
-    public void tearDownAppium() {
+    public void tearDownAppium() throws Exception {
         quitDriver();
     }
 
@@ -111,21 +91,6 @@ public abstract class BaseTest {
         desiredCapabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
     }
 
-    public static WebDriver getScreenshotableWebDriver() {
-        final WebDriver augmentedDriver = new Augmenter().augment(driver);
-        return augmentedDriver;
-    }
-
-    /**
-     * This will set implicit wait
-     *
-     * @param driver
-     */
-    private static void setTimeOuts(AppiumDriver driver) {
-        //Use a higher value if your mobile elements take time to show up
-        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
-    }
-
     private static String getAbsolutePath(String appRelativePath) {
         File file = new File(appRelativePath);
         return file.getAbsolutePath();
@@ -141,4 +106,5 @@ public abstract class BaseTest {
             e.printStackTrace();
         }
     }
+
 }

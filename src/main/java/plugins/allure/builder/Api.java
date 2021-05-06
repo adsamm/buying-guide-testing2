@@ -2,6 +2,7 @@ package plugins.allure.builder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import config.Config;
 import lombok.extern.slf4j.Slf4j;
 import plugins.allure.dto.Results;
 
