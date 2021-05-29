@@ -17,7 +17,7 @@ public class PropertyUtils {
     private final Properties props = new Properties();
 
     private PropertyUtils() {
-        this.loadProperties("application.properties");
+        this.loadProperties("configuration.properties");
         this.props.putAll(System.getProperties());
     }
 

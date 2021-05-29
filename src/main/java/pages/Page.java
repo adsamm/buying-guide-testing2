@@ -1,71 +1,49 @@
 package pages;
 
-import com.github.javafaker.Faker;
-import config.Config;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Coordinates;
-import org.openqa.selenium.interactions.Locatable;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import java.time.Duration;
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.PropertyUtils;
 import utils.WaitUtils;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
-import java.text.SimpleDateFormat;
-
-@Slf4j
-@NoArgsConstructor
-public abstract class Page {
-
-	public static int WAIT_TIMEOUT = 54;
-
-	/**
-	 * Application filesystem location
-	 */
-	protected final String basePath = System.getProperty("user.dir");
+/**
+ * Year: 2018-19
+ *
+ */
+public class Page {
+	public final static int IMPLICIT_WAIT = PropertyUtils.getIntegerProperty("implicitWait", 30);
+	WaitUtils waitUtils;
+	protected final AppiumDriver driver;
 
 	/**
-	 * Web driver
+	 * A base constructor that sets the page's androidDriver
+	 *
+	 * The page structure is being used within this test in order to separate the
+	 * page actions from the tests.
+	 *
+	 * Please use the AppiumFieldDecorator class within the page factory. This way annotations
+	 * like @AndroidFindBy within the page objects.
+	 *
+	 * @param driver the appium androidDriver created in the beforesuite method.
 	 */
-	protected AppiumDriver driver;
+	protected Page (AppiumDriver driver){
+		this.driver = driver;
+		initElements();
+		loadProperties();
+		waitUtils = new WaitUtils();
+	}
 
-	/**
-	 * Wait driver object
-	 */
 	protected WebDriverWait wait;
 
-	/**
-	 * Config
-	 */
-	protected Config config = new Config();
-
-	/**
-	 * Faker
-	 */
-	protected Faker faker = new Faker();
-
-	/**
-	 * Date formatter
-	 */
-	protected SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-	/**
-	 * Constructor
-	 *
-	 * @param driver Web driver
-	 */
-	public Page(AppiumDriver driver) {
-		this.driver = driver;
-		this.waitUtils = new WaitUtils();
+	private void initElements() {
+		PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(IMPLICIT_WAIT)), this);
 	}
+
 
 	/**
 	 * Perform a click on an element with included wait for the element to be clickable
@@ -82,7 +60,8 @@ public abstract class Page {
 		}
 	}
 
-	public static final int IMPLICIT_WAIT = PropertyUtils.getIntegerProperty("implicitWait", 30);
-	WaitUtils waitUtils;
+	private void loadProperties() {
+		//TODO: Add the properties.
+	}
 
 }

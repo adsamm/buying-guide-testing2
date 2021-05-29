@@ -1,8 +1,11 @@
 package utils;
 
+import io.appium.java_client.android.AndroidElement;
 import org.testng.Assert;
 
 import java.util.List;
+
+import static utils.AppiumUtils.waitUtils;
 
 /**
  * Year: 2018-19
@@ -10,7 +13,6 @@ import java.util.List;
  * This class contains different custom asserts commonly used in medium tests
  *
  * @author Prat3ik on 25/09/18
- * @project cloudtimer.ios.automation
  */
 public class AssertUtils {
 
@@ -41,4 +43,22 @@ public class AssertUtils {
         }
     }
 
+    /**
+     * This will check whether element is displayed on UI or not
+     *
+     * @param element
+     * @return
+     */
+    public static boolean isElementDisplayed(AndroidElement element) {
+        waitUtils.staticWait(3000);
+        boolean isPresent = false;
+        try {
+            element.isDisplayed();
+            isPresent = true;
+        } catch (Exception e) {
+            isPresent = false;
+        }
+
+        return isPresent && element.isDisplayed();
+    }
 }

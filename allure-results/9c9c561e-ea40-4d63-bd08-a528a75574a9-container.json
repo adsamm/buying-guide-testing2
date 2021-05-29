@@ -1,0 +1,1 @@
+{"uuid":"9c9c561e-ea40-4d63-bd08-a528a75574a9","name":"Default Suite","children":["45ca01d9-4d6f-40ea-a4f4-da161ccb8c37"],"befores":[],"afters":[{"name":"tearDownAppium","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1622254021802,"stop":1622254024794}],"links":[],"start":1622253976694,"stop":1622254024794}

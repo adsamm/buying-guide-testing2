@@ -3,13 +3,24 @@
  */
 package utils;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.AutomationName;
+import io.appium.java_client.remote.MobileCapabilityType;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,16 +79,6 @@ public class WaitUtils {
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    /**
-     * To wait for element (By) to be visible
-     *
-     * @param driver
-     * @param locator
-     */
-    public void waitForElementToBeVisible(final By locator, final WebDriver driver) {
-        new WebDriverWait(driver, this.explicitWaitDefault)
-                .until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
 
     /**
      * To wait for element to be visible

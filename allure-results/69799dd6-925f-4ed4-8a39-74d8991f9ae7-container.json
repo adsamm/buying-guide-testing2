@@ -1,0 +1,1 @@
+{"uuid":"69799dd6-925f-4ed4-8a39-74d8991f9ae7","name":"tests.BookMeeting","children":["4a4b980f-d8cc-4aef-9a9b-10388fffefb3"],"befores":[],"afters":[{"name":"afterClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1622262883294,"stop":1622262883294}],"links":[],"start":1622262837862,"stop":1622262883323}
