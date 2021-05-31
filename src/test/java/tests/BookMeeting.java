@@ -18,8 +18,7 @@ public class BookMeeting extends BaseTest {
 
         meetingPage.createMeeting();
         meetingPage.pickContact();
-        meetingPage.choseFirstContact
-                ();
+        meetingPage.choseFirstContact();
         meetingPage.newCustomer();
         meetingPage.customerFirstName();
         meetingPage.customerSurName();  
