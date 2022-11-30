@@ -1,6 +1,6 @@
 package tests;
 
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -10,11 +10,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import utils.BaseTest;
 
+import static io.appium.java_client.clipboard.ClipboardContentType.URL;
+
 public class BookMeeting extends BaseTest {
 
     @Test(description = "Create a new meeting and contact")
     public void bookAppointment() {
-        MeetingPage meetingPage = new MeetingPage(androidDriver);
+        MeetingPage meetingPage = new MeetingPage(iosDriver);
 
         meetingPage.createMeeting();
         meetingPage.pickContact();
@@ -41,7 +43,7 @@ public class BookMeeting extends BaseTest {
     @BeforeTest
     @Override
     public void setUpPage() throws MalformedURLException {
-        androidDriver = new AndroidDriver(new URL(APPIUM_SERVER_URL), getDesiredCapabilitiesForAndroid());
+        iosDriver = new IOSDriver(new URL(APPIUM_SERVER_URL), getDesiredCapabilitiesForIOS());
     }
 }
 
